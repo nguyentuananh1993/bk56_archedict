@@ -9,6 +9,14 @@ class CommentsController < ApplicationController
 		@comment.save
 		redirect_to question_path(@question)
 	end
+
+	def destroy
+		@question = Question.find(params[:question_id])
+		@comment = @question.comments.find(params[:id])
+		@comment.destroy
+
+		redirect_to question_path(@question)
+	end
 	private
 	    def set_comment
 	      @comment = Comment.find(params[:id])
