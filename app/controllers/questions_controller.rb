@@ -6,6 +6,7 @@ class QuestionsController < ApplicationController
 
   def index
     @questions = Question.all
+    @users = User.all
     respond_with(@questions)
   end
 
@@ -23,6 +24,7 @@ class QuestionsController < ApplicationController
 
   def create
     @question = Question.new(question_params)
+    @question.user_id = current_user.id
     @question.save
     respond_with(@question)
   end
