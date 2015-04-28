@@ -1,7 +1,8 @@
 Rails.application.routes.draw do
   
-  resources :questions
-
+  resources :questions do
+    resources :comments
+  end
   get 'home' => 'static_pages#home'
   get 'help' => 'static_pages#help'
   get 'questions' => 'questions#show'
