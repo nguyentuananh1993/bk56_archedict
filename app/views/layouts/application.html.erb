@@ -1,23 +1,72 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title><%= full_title(yield(:title)) %></title>
-  <%= stylesheet_link_tag "application", media: "all",
-  "data-turbolinks-track" => true %>
-  <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+  <title>Blog</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= stylesheet_link_tag 'application', 'http://fonts.googleapis.com/css?family=Raleway:400,700' %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= favicon_link_tag 'icon.png' %>
   <%= csrf_meta_tags %>
-  <%= favicon_link_tag "icon.png" %>
-  <%= render 'layouts/shim' %>
 </head>
 <body>
-  <%= render 'layouts/header' %>
-  <div class="container">
-    <% flash.each do |message_type, message| %>
-    <div class="alert alert-<%= message_type %>"><%= message %></div>
+  <div id="sidebar">
+    <div id="logo">
+      <%= link_to root_path do %>
+        <%= image_tag "icon.png" %>
+      <% end %>
+    </div>
+
+    <ul>
+      <li class="category">Website</li>
+      <li><%= link_to "ホーム", root_path %></li>
+        <li><%= link_to "問題", questions_path%></li>
+        <li><%= link_to "FAQ", help_path %></li>
+    </ul>
+
+    <ul>
+      <li class="category">Social</li>
+      <li><a href="https://twitter.com/">Twitter</a></li>
+      <li><a href="http://instagram.com/">Instagram</a></li>
+      <li><a href="https://github.com/">Github</a></li>
+      <li><a href="mailto:nguyentuananh1993@gmail.com" alt="leader email">Email</a></li>
+    </ul>
+    <ul>
+      <li class="category">User</li>
+      <% if user_signed_in? %>
+            <li><%= link_to current_user.email , edit_user_registration_path %></li>
+            <li><%= link_to "ログアウト", destroy_user_session_path, method: :delete %></li>
+        <% else %>
+            <li><%= link_to "登録する", new_user_registration_path %></li>
+            <li><%= link_to "ログイン", new_user_session_path %></li>
+        <% end %>
+    </ul>
+  </div>
+
+  <div id="main_content">
+    <div id="header">
+      <% if current_page?(root_path) %>
+        <p>Home page</p>
+      <% elsif current_page?(help_path)%>
+        <p>Help</p>
+      <% elsif current_page?(questions_path)%>
+        <p>Question</p>
+      <% end %>
+
+      <% if user_signed_in? %>
+        <div class="buttons">
+          <%= link_to "New Post", new_question_path, :class =>"button" %>
+          <%= link_to "ログアウト", destroy_user_session_path, method: :delete, :class =>"button" %>
+        </div>
+      <% end %>
+    </div>
+    
+    <% flash.each do |name, msg| %>
+      <%= content_tag(:div, msg, class: "alert") %>
     <% end %>
+
     <%= yield %>
-    <%= render 'layouts/footer' %>
-    <!-- <%= debug(params) if Rails.env.development? %> -->
   </div>
 </body>
 </html>
+
+

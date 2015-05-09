@@ -1,24 +1,20 @@
-<p id="notice"><%= notice %></p>
-
-<p>
-  <strong>Title:</strong>
-  <%= @question.title %>
-</p>
-
-<p>
-  <strong>Content:</strong>
-  <%= @question.content %>
-</p>
-
-<p>
-  <strong>User:</strong>
-  <%= @question.user.email %>
-</p>
-<div id="comments">
-	<h2><%= @question.comments.count %> Comments</h2>
-	<%= render @question.comments %> 
-	<h3>Add a comment:</h3>
-	<%= render "comments/form" %>
+<div id="post_content">
+  <h1 class="title"><%= @question.title %></h1>
+  <p class="date">
+    Submitted <%= time_ago_in_words(@question.created_at) %> ago by <%= @question.user.email %>
+    <% if current_user == @question.user %>
+    | <%= link_to 'Edit', edit_question_path(@question) %> |
+      <%= link_to 'Delete', question_path(@question), method: :delete, data: { confirm: 'Are you sure?' } %>
+    <% end %>
+  </p>
+  <p class="body"><%= @question.content %></p>
+<div id = "comments">
+  <h2>Question</h2>
+  <%= render @question.comments %> 
+  <h3>Add a comment:</h3>
+  <%= render "comments/form" %>
 </div>
-<%= link_to 'Edit', edit_question_path(@question) %> |
-<%= link_to 'Back', questions_path %>
+</div>
+
+
+

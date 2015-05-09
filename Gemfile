@@ -7,8 +7,6 @@ gem 'rails', '4.1.0'
 gem 'mysql2'
 # Use sql lite as the database
 gem 'sqlite3'
-# Use Bootstrap
-gem 'bootstrap-sass', '3.2.0.0'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.3'
 # Use Uglifier as compressor for JavaScript assets
