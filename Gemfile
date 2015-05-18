@@ -6,7 +6,7 @@ gem 'rails', '4.1.0'
 # Use mysql as the database for Active Record
 gem 'mysql2'
 # Use sql lite as the database
-gem 'sqlite3','1.3.10'
+
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.3'
 # Use Uglifier as compressor for JavaScript assets
@@ -46,6 +46,7 @@ group :production do
 end
 
 group :development, :test do
+  gem 'sqlite3','1.3.10'
   gem 'byebug',      '3.4.0'
   gem 'web-console', '2.0.0.beta3'
 
